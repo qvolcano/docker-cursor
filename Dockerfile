@@ -13,7 +13,7 @@ RUN \
   echo "**** add icon ****" && \
   curl -o \
     /kclient/public/icon.png \
-    https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/obsidian-logo.png && \
+    https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/cursor-logo.png && \
   echo "**** install packages ****" && \
   apt-get update && \
   DEBIAN_FRONTEND=noninteractive \
@@ -32,7 +32,7 @@ RUN \
     /tmp/cursor.app -L \
     "https://downloader.cursor.sh/linux/appImage/x64" && \
   chmod +x /tmp/cursor.app && \
-  ./obsidian.app --appimage-extract && \
+  ./cursor.app --appimage-extract && \
   mv squashfs-root /opt/cursor && \
   echo "**** cleanup ****" && \
   apt-get autoclean && \
