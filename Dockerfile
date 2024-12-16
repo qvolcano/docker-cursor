@@ -3,12 +3,11 @@ FROM ghcr.io/linuxserver/baseimage-kasmvnc:debianbookworm
 # set version label
 ARG BUILD_DATE
 ARG VERSION
-ARG OBSIDIAN_VERSION
 LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="quietsy"
 
 # title
-ENV TITLE=Obsidian
+ENV TITLE=Cursor
 
 RUN \
   echo "**** add icon ****" && \
@@ -18,10 +17,7 @@ RUN \
   echo "**** install packages ****" && \
   apt-get update && \
   DEBIAN_FRONTEND=noninteractive \
-  echo "**** install obsidian ****" && \
-  if [ -z ${OBSIDIAN_VERSION+x} ]; then \
-    OBSIDIAN_VERSION=$(curl -sX GET "https://api.github.com/repos/obsidianmd/obsidian-releases/releases/latest"| awk '/tag_name/{print $4;exit}' FS='[""]'); \
-  fi && \
+  echo "**** install cursor ****" && \
   apt-get install -y --no-install-recommends \
     chromium \
     chromium-l10n \
@@ -33,14 +29,11 @@ RUN \
     python3-xdg && \
   cd /tmp && \
   curl -o \
-    /tmp/obsidian.app -L \
-    "https://github.com/obsidianmd/obsidian-releases/releases/download/${OBSIDIAN_VERSION}/Obsidian-$(echo ${OBSIDIAN_VERSION} | sed 's/v//g').AppImage" && \
-  chmod +x /tmp/obsidian.app && \
+    /tmp/cursor.app -L \
+    "https://downloader.cursor.sh/linux/appImage/x64" && \
+  chmod +x /tmp/cursor.app && \
   ./obsidian.app --appimage-extract && \
-  mv squashfs-root /opt/obsidian && \
-  cp \
-    /opt/obsidian/usr/share/icons/hicolor/512x512/apps/obsidian.png \
-    /usr/share/icons/hicolor/512x512/apps/obsidian.png && \
+  mv squashfs-root /opt/cursor && \
   echo "**** cleanup ****" && \
   apt-get autoclean && \
   rm -rf \
