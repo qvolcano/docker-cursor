@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-kasmvnc:debianbookworm
+FROM ghcr.io/linuxserver/baseimage-kasmvnc:ubuntujammy
 
 # set version label
 ARG BUILD_DATE
